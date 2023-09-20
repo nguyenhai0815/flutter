@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:developer' as developer;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'company_detail_page.dart';
 
 class CompaniesPage extends StatefulWidget {
   const CompaniesPage({super.key});
@@ -53,6 +54,14 @@ class _CompanyPageState extends State<CompaniesPage> {
     }
   }
 
+  void _navigateToCompanyDetail(int companyId) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => CompanyDetailPage(companyId: companyId),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,7 +74,9 @@ class _CompanyPageState extends State<CompaniesPage> {
           final company = companies[index];
           return ListTile(
             title: Text(company['name']),
-            onTap: () {},
+            onTap: () {
+              _navigateToCompanyDetail(company['id']);
+            },
           );
         },
       ),
